@@ -1,6 +1,7 @@
 package com.willyweathermachinetest.service
 
 import android.util.Log
+
 import com.google.gson.GsonBuilder
 import com.willyweathermachinetest.util.CommonUtility
 import com.willyweathermachinetest.view.WillyWeatherApplication.Companion.instance
@@ -58,10 +59,6 @@ class RestClient(private val networkConnection: NetworkConnection) {
         var cache: Cache? = null
         try {
             val cacheSize = 10 * 1024 * 1024
-            Log.d(
-                "isntance",
-                instance.toString() + ""
-            )
             cache = Cache(
                 File(
                     instance!!.cacheDir,
@@ -90,12 +87,14 @@ class RestClient(private val networkConnection: NetworkConnection) {
 
     private fun offLineInterceptor(): Interceptor {
         return Interceptor { chain ->
+            Log.d("TAG", "offline interceptor: called.")
             var request = chain.request()
             // prevent caching when network is on. For that we use the "networkInterceptor"
             if (!CommonUtility(instance!!).checkInternetConnection()) {
                 val cacheControl = CacheControl.Builder()
                     .maxStale(7, TimeUnit.DAYS)
                     .build()
+                Log.d("cacheControl", cacheControl.toString())
                 request = request.newBuilder()
                     .header("Cache-Control", "public, only-if-cached, max-stale=" + 60)
                     .removeHeader("Pragma")
@@ -107,7 +106,7 @@ class RestClient(private val networkConnection: NetworkConnection) {
     }
 
     companion object {
-        private var retrofit: Retrofit? = null
+        var retrofit: Retrofit? = null
     }
 
 }

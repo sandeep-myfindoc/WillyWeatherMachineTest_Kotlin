@@ -3,6 +3,7 @@ package com.willyweathermachinetest.repositories
 import android.util.Log
 import androidx.paging.PageKeyedDataSource
 import com.willyweathermachinetest.BuildConfig
+
 import com.willyweathermachinetest.model.topRateMoviesList.TopRatedMovie
 import com.willyweathermachinetest.model.topRateMoviesList.ServerResponse
 import com.willyweathermachinetest.service.ApiService
@@ -10,6 +11,7 @@ import com.willyweathermachinetest.service.NetworkConnection
 import com.willyweathermachinetest.service.RestClient
 import retrofit2.Call
 import retrofit2.Callback
+
 
 // It act as a Repositry
 class PlayerDataSource : PageKeyedDataSource<Long, TopRatedMovie?>() {
@@ -39,6 +41,7 @@ class PlayerDataSource : PageKeyedDataSource<Long, TopRatedMovie?>() {
         Log.d("Param key", params.key.toString() + "")
         service?.getListOfTopRatedMovies(BuildConfig.apiKey,params.key)?.enqueue(object : Callback<ServerResponse?> {
             override fun onResponse(call: Call<ServerResponse?>, serverResponse: retrofit2.Response<ServerResponse?>) {
+                val topRatedMovieList: List<TopRatedMovie?>? = serverResponse?.body()?.results
                 if (serverResponse != null && serverResponse.body() != null) {
                     val topRatedMovieList: List<TopRatedMovie?>? = serverResponse?.body()?.results
                     val key: Long
@@ -61,6 +64,7 @@ class PlayerDataSource : PageKeyedDataSource<Long, TopRatedMovie?>() {
         Log.d("Param key", params.key.toString() + "")
         service?.getListOfTopRatedMovies(BuildConfig.apiKey,params.key)?.enqueue(object : Callback<ServerResponse?> {
             override fun onResponse(call: Call<ServerResponse?>, serverResponse: retrofit2.Response<ServerResponse?>) {
+                val topRatedMovieList: List<TopRatedMovie?>? = serverResponse?.body()?.results
                 if (serverResponse != null && serverResponse.body() != null) {
                     val topRatedMovieList: List<TopRatedMovie?>? = serverResponse?.body()?.results
                     callback.onResult(topRatedMovieList!!, params.key + 1)

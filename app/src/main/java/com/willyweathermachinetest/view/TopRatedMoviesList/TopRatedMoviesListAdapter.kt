@@ -3,7 +3,6 @@ package com.willyweathermachinetest.view.TopRatedMoviesList
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +10,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.willyweathermachinetest.R
-import com.willyweathermachinetest.databinding.LayoutSubitemCountrylistBinding
+import com.willyweathermachinetest.databinding.LayoutSubitemMovieBinding
+
 import com.willyweathermachinetest.model.topRateMoviesList.TopRatedMovie
 import com.willyweathermachinetest.sharedpreferences.SharedPreferencesName
 import com.willyweathermachinetest.view.TopRatedMovieDetail.TopRatedMovieDetail
@@ -32,8 +31,8 @@ class TopRatedMoviesListAdapter : PagedListAdapter<TopRatedMovie, PlayerViewHold
     protected constructor(diffCallback: DiffUtil.ItemCallback<TopRatedMovie?>) : super(diffCallback) {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerViewHolder {
-        var binding:LayoutSubitemCountrylistBinding
-        binding = DataBindingUtil.inflate(LayoutInflater.from(mContext),R.layout.layout_subitem_countrylist, parent, false)
+        var binding:LayoutSubitemMovieBinding
+        binding = DataBindingUtil.inflate(LayoutInflater.from(mContext),R.layout.layout_subitem_movie, parent, false)
         return PlayerViewHolder(binding)
     }
 
@@ -42,7 +41,7 @@ class TopRatedMoviesListAdapter : PagedListAdapter<TopRatedMovie, PlayerViewHold
         holder.binding.movie = topRatedMovie
 
     }
-    inner class PlayerViewHolder(var binding: LayoutSubitemCountrylistBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class PlayerViewHolder(var binding: LayoutSubitemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.getRoot().setOnClickListener(View.OnClickListener {
                 val position: Int = getAdapterPosition()

@@ -12,22 +12,22 @@ import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
 //JsonObject
-class PlayerListViewModel(application: Application) : AndroidViewModel(application) {
-    var topRatedMoviePagedList: LiveData<PagedList<TopRatedMovie>>
+class TopRatedMovieListViewModel(application: Application) : AndroidViewModel(application) {
+    val topRatedMoviePagedList: LiveData<PagedList<TopRatedMovie>>
     private val executor: Executor
 
     init {
-        Log.d("inside ","init")
         val factory = PlayerDataSourceFactory()
+        //liveDataSource = factory.getMutableLiveData();
         val config = PagedList.Config.Builder()
-                .setEnablePlaceholders(true)
-                .setInitialLoadSizeHint(10)
-                .setPageSize(20)
-                .setPrefetchDistance(4)
-                .build()
+            .setEnablePlaceholders(true)
+            .setInitialLoadSizeHint(10)
+            .setPageSize(20)
+            .setPrefetchDistance(4)
+            .build()
         executor = Executors.newFixedThreadPool(5)
         topRatedMoviePagedList = LivePagedListBuilder(factory, config)
-                .setFetchExecutor(executor)
-                .build()
+            .setFetchExecutor(executor)
+            .build()
     }
 }
