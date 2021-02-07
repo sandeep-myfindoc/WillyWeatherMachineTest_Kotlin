@@ -5,9 +5,10 @@
     tools:context="info.androidhive.recyclerviewsearch.MainActivity">
     <item
         app:iconTint="@color/white"
-        android:id="@+id/menuFavorite"
+        android:id="@+id/menuSearch"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
         android:title="Fav"
-        android:icon="@drawable/like"
+        android:icon="@android:drawable/ic_menu_search"
         android:iconTint="@color/white"
         app:showAsAction="always"/>
 </menu>

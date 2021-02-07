@@ -1,12 +1,16 @@
 package com.willyweathermachinetest.view.TopRatedMoviesList
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
+import com.willyweathermachinetest.view.Wishlist.WishlistActivity
 import com.google.android.material.snackbar.Snackbar
 import com.willyweathermachinetest.R
 import com.willyweathermachinetest.broadcastreceiver.ConnectivityReceiver
@@ -44,6 +48,20 @@ class TopRatedMoviesListActivity : SuperActivity(){
         menuInflater.inflate(R.menu.top_player_list_menu,menu)
         return true
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var intent = Intent(this, WishlistActivity::class.java)
+        when(item.getItemId())
+
+        {
+            R.id.menuFavorite-> startActivity(intent)
+            else-> Log.d("Invalid","");
+
+
+        }
+
+        return true
     }
 
     private fun initRecyclerView() {
