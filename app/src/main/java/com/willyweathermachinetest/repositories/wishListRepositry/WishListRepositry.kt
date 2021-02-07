@@ -1,7 +1,9 @@
 package com.willyweathermachinetest.repositories.wishListRepositry
 import androidx.lifecycle.MutableLiveData
+import com.willyweathermachinetest.database.WishListDatabase
 import com.willyweathermachinetest.database.Wishlist
-import com.willyweathermachinetest.view.WillyWeatherApplication.Companion.myDatabase
+import com.willyweathermachinetest.view.WillyWeatherApplication
+
 
 
 class WishListRepositry {
@@ -10,7 +12,7 @@ class WishListRepositry {
             val data =
                 MutableLiveData<List<Wishlist?>?>()
             val wishListData =
-                myDatabase!!.wishListDao()!!.wishListData
+                WishListDatabase.getInstance(WillyWeatherApplication.instance)!!.wishListDao()!!.wishListData
             data.postValue(wishListData)
             return data
         }

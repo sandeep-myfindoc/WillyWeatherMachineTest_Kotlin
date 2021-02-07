@@ -12,11 +12,6 @@ class WillyWeatherApplication : Application() {
   override fun onCreate() {
       super.onCreate()
       instance = this
-      myDatabase = Room.databaseBuilder(
-          applicationContext,
-          WishListDatabase::class.java, "Wish_Data"
-      ).allowMainThreadQueries().build()
-
   }
 
     fun setConnectivityListener(listener: ConnectivityReceiver.ConnectivityReceiverListener?) {
@@ -26,7 +21,7 @@ class WillyWeatherApplication : Application() {
     companion object {
         @get:Synchronized
         var instance: WillyWeatherApplication? = null
-        var myDatabase: WishListDatabase? = null
+
             private set
     }
 }

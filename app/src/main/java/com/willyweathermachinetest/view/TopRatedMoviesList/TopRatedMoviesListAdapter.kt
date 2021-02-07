@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.willyweathermachinetest.R
+import com.willyweathermachinetest.database.WishListDatabase
 import com.willyweathermachinetest.database.Wishlist
 import com.willyweathermachinetest.databinding.LayoutSubitemMovieBinding
 
@@ -46,7 +47,7 @@ class TopRatedMoviesListAdapter : PagedListAdapter<TopRatedMovie, PlayerViewHold
     override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
         var topRatedMovie: TopRatedMovie? = getItem(position)
         holder.binding.movie = topRatedMovie
-        if (WillyWeatherApplication.myDatabase?.wishListDao()?.isWish(topRatedMovie!!.id) == 1) {
+        if (WishListDatabase.getInstance(mContext)?.wishListDao()?.isWish(topRatedMovie!!.id) == 1) {
             holder.binding.imgLike.setImageResource(R.drawable.like)
         } else {
             holder.binding.imgLike.setImageResource(R.drawable.dislike)
@@ -78,12 +79,12 @@ class TopRatedMoviesListAdapter : PagedListAdapter<TopRatedMovie, PlayerViewHold
                     wishlist.posterPath = selectedMovie!!.poster_path
                     wishlist.movieTitle = selectedMovie!!.title
                     wishlist.releaseDate = selectedMovie!!.release_date
-                    if (WillyWeatherApplication.myDatabase?.wishListDao()?.isWish(selectedMovie!!.id) != 1) {
+                    if (WishListDatabase.getInstance(mContext)?.wishListDao()?.isWish(selectedMovie!!.id) != 1) {
                         binding.imgLike.setImageResource(R.drawable.like)
-                        WillyWeatherApplication.myDatabase?.wishListDao()?.addTowishdata(wishlist)
+                        WishListDatabase.getInstance(mContext)?.wishListDao()?.addTowishdata(wishlist)
                     } else {
                         binding.imgLike.setImageResource(R.drawable.dislike)
-                        WillyWeatherApplication?.myDatabase?.wishListDao()?.delete(wishlist)
+                        WishListDatabase.getInstance(mContext)?.wishListDao()?.delete(wishlist)
                     }
                 }
             })
